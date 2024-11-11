@@ -1,1 +1,180 @@
 /* write css here */
+
+/* Color Variables */
+:root {
+
+  /* Font family */
+  --Font_Primary: 'Poppins', sans-serif;
+
+  /* Colors */
+  --primary-color: #f7d794;
+  --secondary-color: #f9e3b4;
+  --container-bg: #fcefd4;
+
+
+  --light-border: #D4C4B0;
+  --dark-border: #7B614E;
+
+  --text-color-dark: #23120B;
+  --text-color-light: #6E5D52;
+
+  --highlight-color: #FFF8E6;
+
+  --link-color: #8A7262;
+
+
+  /* Media query breakpoints */
+  --sm-laptop: 78.125em;
+}
+
+
+/* Global Rest */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+}
+
+
+html {
+  /* Setting 1rem = 10px */
+  font-size: 62.5%;
+}
+
+body {
+  font-family: var(--Font_Primary);
+
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  /* color: #242424; */
+}
+
+
+
+.container {
+  width: 70%;
+  background-color: var(--container-bg);
+  padding: 3rem;
+  border: .3rem solid var(--dark-border);
+  border-radius: 1rem;
+}
+
+.title {
+  font-size: 3rem;
+}
+
+.tagline {
+  font-size: 1.8rem;
+}
+
+.center-text {
+  text-align: center;
+  color: var(--text-color-dark);
+}
+
+
+.seperator {
+  border: none;
+  height: .3rem;
+  background-color: var(--dark-border);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 1rem;
+}
+
+
+.expense-form {
+  display: flex;
+  /* outline: 1px solid lime; */
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--Primary-Font);
+  width: 100%;
+  gap: 2rem;
+}
+
+.expense-input {
+  flex: 1;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.36);
+  border: .2rem solid var(--text-color-light);
+  font-size: 1.4rem;
+  border-radius: .5rem;
+  transition: .5s;
+}
+
+.expense-input:focus {
+  border: .2rem solid var(--text-color-dark);
+}
+
+
+
+.btn {
+  cursor: pointer;
+  font-family: var(--Font_Primary);
+  font-weight: 500;
+}
+
+.btn:hover {
+  border: .2rem solid var(--text-color-dark);
+  /* background-color: #c6ac76; */
+  background-color: var(--primary-color);
+}
+
+
+
+
+.expense-table {
+  width: 100%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.expense-fields {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* outline: 1px solid lime; */
+}
+
+
+.expense-details {
+  font-size: 2rem;
+  color: var(--text-color-light);
+}
+
+
+.display-expense {
+  font-size: 2rem;
+  color: var(--text-color-dark);
+  font-weight: 500;
+}
+
+/* Media queries */
+
+
+
+@media (max-width: 78.125em) {
+  .container {
+    width: 80%;
+  }
+}
+
+@media (max-width: 70em) {
+  .container {
+    width: 95vw;
+  }
+}
+
+
+/* To remove those arrows from number input */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

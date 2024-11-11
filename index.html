@@ -1,13 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <title>JS-4 Expense Tracker App (anshbegmirza)</title>
+
+    <!-- Font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- JS -->
     <script defer src="script.js"></script>
-    <title>Document</title>
 </head>
+
 <body>
-    
+    <div class="container">
+
+        <!-- Title -->
+        <h1 class="title center-text">Expense Tracker</h1>
+        <p class="tagline center-text">"Track Your Spending, Take Control of Your Finances"</p>
+        <hr class="seperator">
+
+        <!-- Expense Form -->
+        <form action="" id="expense-form" class="expense-form">
+            <input id="expense-name" class="expense-input" type="text" placeholder="Expense Name" required>
+            <input id="expense-amount" class="expense-input" type="number" placeholder="Expense Amount" required>
+            <input id="expense-date" class="expense-input" type="date" placeholder="Purchase Date" required>
+
+            <select class="expense-input expense-select" name="" id="expense-category">
+                <!-- Dynamically cate would be added from js -->
+            </select>
+            <button id="expense-btn" class="expense-input btn">Add Expense</button>
+        </form>
+
+        <!-- Expense Table -->
+        <table class="expense-table">
+            <thead>
+                <tr class="expense-fields">
+                    <th class="expense-details">Name</th>
+                    <th class="expense-details">Amount</th>
+                    <th class="expense-details">Date</th>
+                    <th class="expense-details">Category</th>
+                    <th class="expense-details">Action</th>
+                </tr>
+            </thead>
+            <tbody id="expense-TableBody">
+                <!-- Dynamically data would be added from js -->
+            </tbody>
+        </table>
+
+        <!-- Display Total Expense -->
+        <p class="display-expense">Total Expense: <span id="total-expense" class="total-expense">$0.00</span></p>
+    </div>
 </body>
+
 </html>
