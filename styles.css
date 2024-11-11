@@ -142,10 +142,20 @@ body {
   /* outline: 1px solid lime; */
 }
 
+.margin-btm {
+  margin-bottom: 1rem;
+}
 
 .expense-details {
   font-size: 2rem;
-  color: var(--text-color-light);
+  color: var(--text-color-dark);
+  text-align: center;
+}
+
+.expense-data {
+  font-size: 1.6rem;
+  color: var(--text-color-dark);
+  text-align: center;
 }
 
 
@@ -153,6 +163,24 @@ body {
   font-size: 2rem;
   color: var(--text-color-dark);
   font-weight: 500;
+}
+
+
+.delete-btn {
+  border: none;
+  padding: .5rem 1rem;
+  background-color: rgb(230, 58, 58);
+  font-family: var(--Font_Primary);
+  font-size: 1.2rem;
+  border-radius: 1rem;
+  color: var(--highlight-color);
+  cursor: pointer;
+  transition: all .6s;
+}
+
+.delete-btn:hover {
+  background-color: rgb(209, 15, 15);
+  transform: translateY(-0.2rem);
 }
 
 /* Media queries */
@@ -167,10 +195,16 @@ body {
 
 @media (max-width: 70em) {
   .container {
-    width: 95vw;
+    width: 90vw;
+    padding: 1.5rem;
   }
 }
 
+@media(max-width:62.1em) {
+  html {
+    font-size: 55%;
+  }
+}
 
 /* To remove those arrows from number input */
 input::-webkit-outer-spin-button,

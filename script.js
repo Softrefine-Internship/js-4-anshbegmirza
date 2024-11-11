@@ -57,16 +57,19 @@ const renderExpenses = function () {
   // expenses = [];
   expenses.forEach((expense, index) => {
     const row = document.createElement('tr');
+    row.classList.add('expense-fields');
+    row.classList.add('margin-btm');
     console.log(expense.amount);
     console.log(expense);
 
     row.innerHTML = `
-        <td>${expense.name}</td> 
-        <td>$${expense.amount.toFixed(2)}</td>
-        <td>${new Date(expense.date).toLocaleDateString()}</td>
-        <td>${expense.category}</td>
-        <td><button data-index="${index}" class="delete-btn">Delete</button></td>
+        <td class="expense-data">${expense.name}</td> 
+        <td class="expense-data">$${expense.amount.toFixed(2)}</td>
+        <td class="expense-data">${new Date(expense.date).toLocaleDateString()}</td>
+        <td class="expense-data">${expense.category}</td>
+        <td class="expense-data"><button data-index="${index}" class="delete-btn">Delete</button></td>
     `;
+
     expenseTableBody.appendChild(row);
   })
 };
