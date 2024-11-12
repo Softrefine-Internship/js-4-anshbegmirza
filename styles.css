@@ -6,6 +6,7 @@
   /* Font family */
   --Font_Primary: 'Poppins', sans-serif;
 
+
   /* Colors */
   --primary-color: #f7d794;
   --secondary-color: #f9e3b4;
@@ -22,9 +23,10 @@
 
   --link-color: #8A7262;
 
+  --table-odd-row: #f7d794;
 
-  /* Media query breakpoints */
-  --sm-laptop: 78.125em;
+  --table-even-row: #faeac8;
+
 }
 
 
@@ -40,6 +42,8 @@
 html {
   /* Setting 1rem = 10px */
   font-size: 62.5%;
+  height: 100vh;
+  overflow: hidden;
 }
 
 body {
@@ -53,6 +57,7 @@ body {
 
 }
 
+/* Grid styles */
 .grid-overlay {
   position: fixed;
   top: 0;
@@ -70,13 +75,13 @@ body {
   background-position: 0 0, 20px 20px, 20px 20px;
 }
 
+/* Container styles */
 .container {
   width: 70%;
   background-color: var(--container-bg);
-  padding: 3rem;
+  padding: 1rem 2rem;
   border: .3rem solid var(--dark-border);
   border-radius: 1rem;
-
 }
 
 .title {
@@ -105,6 +110,7 @@ body {
 }
 
 
+/* Form styles */
 .expense-form {
   display: flex;
   /* outline: 1px solid lime; */
@@ -116,7 +122,7 @@ body {
 }
 
 .expense-input {
-  flex: 1;
+  flex: 1 0 0;
   padding: 1rem;
   background-color: rgba(255, 255, 255, 0.36);
   border: .2rem solid var(--text-color-light);
@@ -127,6 +133,23 @@ body {
 
 .expense-input:focus {
   border: .2rem solid var(--text-color-dark);
+}
+
+.filter-text {
+  font-size: 1.4rem;
+  color: var(--text-color-dark);
+  font-weight: 500;
+}
+
+.filter-by {
+  font-family: var(--Font_Primary);
+  padding: .5rem;
+  margin: 1rem;
+  margin-top: 1.5rem;
+  border-radius: 2rem;
+  border: .2rem solid var(--text-color-light);
+  font-size: 1.4rem;
+  background-color: rgba(255, 255, 255, 0.36);
 }
 
 
@@ -141,57 +164,88 @@ body {
 .btn:hover {
   border: .2rem solid var(--text-color-dark);
   /* background-color: #c6ac76; */
-  background-color: var(--primary-color);
-}
-
-
-
-
-.expense-table {
-  width: 100%;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  border: 1px solid gray;
-}
-
-.expense-fields {
-  /* display: flex; */
-
-  align-items: center;
-  justify-content: space-between;
-  /* outline: 1px solid lime; */
+  background-color: var(--table-odd-row);
 }
 
 .margin-btm {
   margin-bottom: 1rem;
 }
 
-.expense-details {
-  font-size: 2rem;
+
+/* Table styles */
+.expense-table-wrapper {
+  max-height: 30rem;
+  /* Sets the scrollable height */
+  overflow-y: auto;
+  /* Enables vertical scrolling */
+}
+
+.expense-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.expense-table thead {
+  position: sticky;
+  /* Keeps the thead fixed */
+  top: 0;
+  z-index: 1;
+  background-color: var(--highlight-color);
+  /* Ensure it matches the header */
+}
+
+.expense-fields th,
+.expense-data {
+  border-bottom: 1px solid var(--light-border);
+  padding: 1rem;
+  text-align: left;
+}
+
+.expense-fields th {
   color: var(--text-color-dark);
-  text-align: center;
+  font-weight: 600;
+  font-size: 1.8rem;
 }
 
 .expense-data {
   font-size: 1.6rem;
-  color: var(--text-color-dark);
-  /* text-align: center; */
-  text-align: left;
-}
-
-
-.display-expense {
-  font-size: 2rem;
-  color: var(--text-color-dark);
+  padding: 1rem;
   font-weight: 500;
+  color: var(--text-color-dark);
+  background-color: var(--container-bg);
+}
+
+.expense-fields tr:nth-child(even) .expense-data {
+  background-color: var(--table-odd-row);
+}
+
+.expense-fields tr:nth-child(odd) .expense-data {
+  background-color: var(--table-even-row);
+}
+
+/* Scrollbar styling */
+.expense-table-wrapper::-webkit-scrollbar {
+  width: .5rem;
+}
+
+.expense-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: var(--dark-border);
+  border-radius: 4px;
+}
+
+.expense-table-wrapper::-webkit-scrollbar-track {
+  background-color: var(--container-bg);
 }
 
 
+
+/* delete btn */
 .delete-btn {
   border: none;
   padding: .5rem 1rem;
   background-color: rgb(230, 58, 58);
   font-family: var(--Font_Primary);
+  font-weight: 500;
   font-size: 1.2rem;
   border-radius: 1rem;
   color: var(--highlight-color);
@@ -204,28 +258,14 @@ body {
   transform: translateY(-0.2rem);
 }
 
-/* Media queries */
-
-
-
-@media (max-width: 78.125em) {
-  .container {
-    width: 80%;
-  }
+/* display */
+.display-expense {
+  font-size: 2rem;
+  color: var(--text-color-dark);
+  font-weight: 500;
+  margin-top: 2rem;
 }
 
-@media (max-width: 70em) {
-  .container {
-    width: 90vw;
-    padding: 1.5rem;
-  }
-}
-
-@media(max-width:62.1em) {
-  html {
-    font-size: 55%;
-  }
-}
 
 /* To remove those arrows from number input */
 input::-webkit-outer-spin-button,
@@ -234,4 +274,107 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* Grid styles */
+
+/* Responsive design and Media Queries */
+@media(min-width: 76em) {
+  html {
+    font-size: 66%;
+  }
+
+  .container {
+    width: 85%;
+    padding: 2rem 2.5rem;
+  }
+}
+
+@media (max-width: 76em) {
+  html {
+    font-size: 55%;
+  }
+
+  .container {
+    width: 85%;
+    padding: 2rem 2.5rem;
+  }
+}
+
+@media(max-width:54.5em) {
+  html {
+    font-size: 50%;
+  }
+
+  .container {
+    padding: 1rem 1.5rem;
+  }
+
+  .expense-input:nth-child(1),
+  .expense-input:nth-child(2) {
+    max-width: 12rem;
+  }
+
+}
+
+/* Delete model goes here */
+.overlay {
+  height: 1000rem;
+  width: 1000rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(2rem);
+  position: fixed;
+  z-index: 1000;
+}
+
+.delete-model {
+  height: 34rem;
+  background-color: white;
+  position: fixed;
+  z-index: 1200;
+  width: 35rem;
+  padding: 1.5rem 2rem;
+  border-radius: 2rem;
+}
+
+.delete-request {
+  text-align: center;
+  font-size: 1.8rem;
+  margin: 2rem 0;
+}
+
+.delete-img {
+  height: 20rem;
+  width: auto;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttons-box {
+  outline: 1px solid lime;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hidden {
+  /* opacity: 0; */
+  visibility: hidden;
+}
+
+
+@media(max-width:40em) {
+
+  .container {
+    padding: 1rem;
+    width: 90%;
+    gap: 1rem;
+  }
+
+  /* .expense-input {
+    min-width: 5rem;
+    padding: 1rem .5rem;
+  } */
+  .expense-input:last-child {
+    width: max-content;
+  }
+}

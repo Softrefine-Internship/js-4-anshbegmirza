@@ -36,27 +36,47 @@
             <select class="expense-input expense-select" name="" id="expense-category">
                 <!-- Dynamically cate would be added from js -->
             </select>
-            <button id="expense-btn" class="expense-input btn">Add Expense</button>
+            <button id="expense-btn" class="expense-input btn">Add </button>
         </form>
 
+        <label class="filter-text" for="filter-category">Filter by Category</label>
+        <select name="" class="filter-by margin-btm" id="filter-category">
+            <!-- Dynamically cate would be added from js -->
+        </select>
+
         <!-- Expense Table -->
-        <table class="expense-table">
-            <thead>
-                <tr class="expense-fields">
-                    <th class="expense-details">Name</th>
-                    <th class="expense-details">Amount</th>
-                    <th class="expense-details">Date</th>
-                    <th class="expense-details">Category</th>
-                    <th class="expense-details">Action</th>
-                </tr>
-            </thead>
-            <tbody id="expense-TableBody">
-                <!-- Dynamically data would be added from js -->
-            </tbody>
-        </table>
+        <div class="expense-table-wrapper">
+            <table class="expense-table">
+                <thead>
+                    <tr class="expense-fields">
+                        <th class="expense-details">Name</th>
+                        <th class="expense-details">Amount</th>
+                        <th class="expense-details">Date</th>
+                        <th class="expense-details">Category</th>
+                        <th class="expense-details">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="expense-fields" id="expense-TableBody">
+                    <!-- Dynamically data would be added from js -->
+                </tbody>
+
+            </table>
+        </div>
+
+        <!-- Modal for delete conformation -->
+
 
         <!-- Display Total Expense -->
         <p class="display-expense">Total Expense: <span id="total-expense" class="total-expense">$0.00</span></p>
+    </div>
+    <div class="overlay hidden"></div>
+    <div class="delete-model hidden">
+        <p class="delete-request">Do you really want to delete expense?</p>
+        <img src="imgs/trash_Can.png" class="delete-img" alt="">
+        <button>x</button>
+        <div class="buttons-box"><button class="btn">Yes, Delete</button>
+            <button class="btn">Cancel this time</button>
+        </div>
     </div>
 </body>
 

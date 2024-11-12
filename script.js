@@ -12,24 +12,31 @@ const expenseDate = document.getElementById('expense-date')
 const totalExpenseDisplay = document.getElementById('total-expense');
 // console.log(totalExpenseDisplay);
 
+
+const filterByCategory = document.getElementById('filter-category');
+console.log(filterByCategory);
+
+
 // to store data in local storage.
 let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
 // console.log(formExpense, expenseName, expenseAmount, expenseDate, expenseCategory, expenseBtn);
 
 // to add categories in table.
-const addCategoriesToForm = function () {
-  const categories = ['Category', 'Housing', 'Transportation', 'Food', 'Medical', 'Other'];
+const addCategoriesToForm = function (select, placeholder) {
+  const categories = [`${placeholder}`, 'Housing', 'Transportation', 'Food', 'Medical', 'Other'];
   // console.log(categories);
   categories.forEach(cate => {
     const option = document.createElement('option');
     option.textContent = cate;
-    option.value = (cate === 'Category') ? '' : cate;
-    expenseCategory.appendChild(option);
+    option.value = (cate === placeholder) ? '' : cate;
+    select.appendChild(option);
   })
 };
 
-addCategoriesToForm();
+addCategoriesToForm(expenseCategory, 'Category');
+
+addCategoriesToForm(filterByCategory, 'All');
 
 // Setting max date 
 const today = new Date();
@@ -40,6 +47,18 @@ console.log(formattedDate);
 expenseDate.setAttribute('max', formattedDate);
 
 
+const formatMovementDate = function (date, locale) {
+  const calcDaysPassed = (date1, date2) => Math.floor(Math.abs((date2 - date1)) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(today, date);
+  // console.log(daysPassed);
+
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+
+  return new Intl.DateTimeFormat(locale).format(date);
+};
 
 const addExpense = function (expense) {
   expenses.push(expense);
@@ -50,30 +69,33 @@ const addExpense = function (expense) {
   calculateTotal();
 };
 
-// to show expenses in the table.
-const renderExpenses = function () {
+
+// Function to show expenses in the table
+const renderExpenses = function (filterCategory = '') {
   expenseTableBody.innerHTML = '';
-  // console.log(expenses);
-  // expenses = [];
-  expenses.forEach((expense, index) => {
+
+  const filteredExpenses = filterCategory
+    ? expenses.filter(expense => expense.category === filterCategory)
+    : expenses;
+
+  filteredExpenses.forEach((expense, index) => {
     const row = document.createElement('tr');
-    row.classList.add('expense-fields');
-    row.classList.add('margin-btm');
-    console.log(expense.amount);
-    console.log(expense);
+    row.classList.add('expense-fields', 'margin-btm');
+
+    const movementDate = new Date(expense.date);
+    const showDate = formatMovementDate(movementDate);
 
     row.innerHTML = `
-        <td class="expense-data">${expense.name}</td> 
-        <td class="expense-data">$${expense.amount.toFixed(2)}</td>
-        <td class="expense-data">${new Date(expense.date).toLocaleDateString()}</td>
-        <td class="expense-data">${expense.category}</td>
-        <td class="expense-data"><button data-index="${index}" class="delete-btn">Delete</button></td>
+      <td class="expense-data">${expense.name}</td>
+      <td class="expense-data">$${expense.amount.toFixed(2)}</td>
+      <td class="expense-data">${showDate}</td>
+      <td class="expense-data">${expense.category}</td>
+      <td class="expense-data"><button data-index="${index}" class="delete-btn">Delete</button></td>
     `;
 
     expenseTableBody.appendChild(row);
-  })
+  });
 };
-
 renderExpenses();
 
 
@@ -115,4 +137,12 @@ expenseTableBody.addEventListener('click', function (e) {
     renderExpenses();
     calculateTotal();
   }
+});
+
+
+// FIlterby category 
+filterByCategory.addEventListener('change', function () {
+  const selectedCategory = filterByCategory.value;
+  // console.log(selectedCategory);
+  renderExpenses(selectedCategory);
 });
