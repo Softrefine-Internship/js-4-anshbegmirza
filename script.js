@@ -14,7 +14,15 @@ const totalExpenseDisplay = document.getElementById('total-expense');
 
 
 const filterByCategory = document.getElementById('filter-category');
-console.log(filterByCategory);
+// console.log(filterByCategory);
+
+const overlayEl = document.querySelector('.overlay');
+const deleteModelEl = document.querySelector('.delete-model');
+const deleteBtn = document.getElementById('deleteBtn')
+
+const confirmDelete = document.querySelector('.yes-delete');
+const cancelBtnEl = document.querySelector('.cancel-btn');
+const closePopIcon = document.querySelector('.close-popup-btn');
 
 
 // to store data in local storage.
@@ -43,7 +51,7 @@ const today = new Date();
 // console.log(today);
 const formattedDate = today.toISOString().split('T')[0];
 
-console.log(formattedDate);
+// console.log(formattedDate);
 expenseDate.setAttribute('max', formattedDate);
 
 
@@ -62,12 +70,18 @@ const formatMovementDate = function (date, locale) {
 
 const addExpense = function (expense) {
   expenses.push(expense);
-  console.log(expense);
-
+  // console.log(expense);
   localStorage.setItem('expenses', JSON.stringify(expenses));
   renderExpenses();
   calculateTotal();
 };
+
+// to calculate total expenses
+const calculateTotal = function (filteredExpenses = expenses) {
+  const total = filteredExpenses.reduce((sum, exp) => sum + exp.amount, 0);
+  totalExpenseDisplay.textContent = `$${total.toFixed(2)}`;
+};
+calculateTotal();
 
 
 // Function to show expenses in the table
@@ -78,35 +92,28 @@ const renderExpenses = function (filterCategory = '') {
     ? expenses.filter(expense => expense.category === filterCategory)
     : expenses;
 
-  filteredExpenses.forEach((expense, index) => {
+  calculateTotal(filteredExpenses)
+
+  filteredExpenses.forEach((expense) => {
     const row = document.createElement('tr');
     row.classList.add('expense-fields', 'margin-btm');
 
     const movementDate = new Date(expense.date);
     const showDate = formatMovementDate(movementDate);
+    const index = expenses.indexOf(expense);
+    // console.log(index);
 
     row.innerHTML = `
       <td class="expense-data">${expense.name}</td>
       <td class="expense-data">$${expense.amount.toFixed(2)}</td>
       <td class="expense-data">${showDate}</td>
       <td class="expense-data">${expense.category}</td>
-      <td class="expense-data"><button data-index="${index}" class="delete-btn">Delete</button></td>
+      <td class="expense-data"><button id="deleteBtn" data-index="${index}" class="delete-btn">Delete</button></td>
     `;
-
     expenseTableBody.appendChild(row);
   });
 };
 renderExpenses();
-
-
-// to calculate total expenses
-
-const calculateTotal = function () {
-  const total = expenses.reduce((sum, exp) => sum + exp.amount, 0);
-  totalExpenseDisplay.textContent = `$${total.toFixed(2)}`;
-};
-calculateTotal();
-
 
 // adding event listener to expense form
 expenseForm.addEventListener('submit', (e) => {
@@ -118,7 +125,7 @@ expenseForm.addEventListener('submit', (e) => {
   const date = document.getElementById('expense-date').value;
   const category = document.getElementById('expense-category').value;
 
-  console.log(amount, name, date, category);
+  // console.log(amount, name, date, category);
 
   if (name && amount && date) {
     addExpense({ name, amount, date, category });
@@ -127,15 +134,46 @@ expenseForm.addEventListener('submit', (e) => {
 });
 
 
+const openMsg = function () {
+  overlayEl.classList.remove('hidden');
+  deleteModelEl.classList.remove('hidden');
+}
+
+const closeMsg = function () {
+  overlayEl.classList.add('hidden');
+  deleteModelEl.classList.add('hidden');
+}
+
 //delete data from table.
-expenseTableBody.addEventListener('click', function (e) {
-  if (e.target.classList.contains('delete-btn')) {
-    const index = e.target.getAttribute('data-index');
-    console.log(index);
-    expenses.splice(index, 1);
-    localStorage.setItem('expenses', JSON.stringify(expenses));
-    renderExpenses();
-    calculateTotal();
+expenseTableBody.addEventListener('click', function (el) {
+  // console.log(deleteBtn);
+  if (el.target.classList.contains('delete-btn')) {
+    openMsg()
+    const index = el.target.getAttribute('data-index');
+
+    confirmDelete.addEventListener('click', function () {
+      // delete funtionality
+
+      // console.log(index);
+
+      if (index !== -1) {
+        // console.log(index);
+        expenses.splice(index, 1);
+        localStorage.setItem('expenses', JSON.stringify(expenses));
+        renderExpenses(filterByCategory.value);
+        calculateTotal();
+        closeMsg();
+      }
+    })
+
+    // Close modal on Escape key press
+    document.addEventListener('keydown', (pressedKey) => {
+      if (pressedKey.key === 'Escape' && !deleteModelEl.classList.contains('hidden')) {
+        closeMsg();
+      }
+    });
+    cancelBtnEl.addEventListener('click', closeMsg);
+    closePopIcon.addEventListener('click', closeMsg)
   }
 });
 

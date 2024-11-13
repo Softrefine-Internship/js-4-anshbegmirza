@@ -29,17 +29,21 @@
 
         <!-- Expense Form -->
         <form action="" id="expense-form" class="expense-form">
-            <input id="expense-name" class="expense-input" type="text" placeholder="Expense Name" required>
-            <input id="expense-amount" class="expense-input" type="number" placeholder="Expense Amount" required>
+            <input id="expense-name" class="expense-input" type="text" placeholder="Expense Name" maxlength="20"
+                required>
+            <input id="expense-amount" class="expense-input" type="number" placeholder="Expense Amount" maxlength="10"
+                required>
             <input id="expense-date" class="expense-input" type="date" placeholder="Purchase Date" required>
 
             <select class="expense-input expense-select" name="" id="expense-category">
                 <!-- Dynamically cate would be added from js -->
             </select>
-            <button id="expense-btn" class="expense-input btn">Add </button>
+            <button id="expense-btn" class="expense-input add-btn btn"> <ion-icon name="cart-outline"></ion-icon>
+                <p>Add</p>
+            </button>
         </form>
 
-        <label class="filter-text" for="filter-category">Filter by Category</label>
+        <label class="filter-text" for="filter-category">Filter by Category :</label>
         <select name="" class="filter-by margin-btm" id="filter-category">
             <!-- Dynamically cate would be added from js -->
         </select>
@@ -73,11 +77,13 @@
     <div class="delete-model hidden">
         <p class="delete-request">Do you really want to delete expense?</p>
         <img src="imgs/trash_Can.png" class="delete-img" alt="">
-        <button>x</button>
-        <div class="buttons-box"><button class="btn">Yes, Delete</button>
-            <button class="btn">Cancel this time</button>
+        <button class="close-popup-btn"><ion-icon name="close-circle-outline"></ion-icon></button>
+        <div class="buttons-box"><button class="yes-delete">Yes, Delete</button>
+            <button class="cancel-btn">Cancel this time</button>
         </div>
     </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

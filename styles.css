@@ -119,6 +119,7 @@ body {
   font-family: var(--Primary-Font);
   width: 100%;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .expense-input {
@@ -129,6 +130,7 @@ body {
   font-size: 1.4rem;
   border-radius: .5rem;
   transition: .5s;
+  text-wrap: wrap;
 }
 
 .expense-input:focus {
@@ -146,13 +148,22 @@ body {
   padding: .5rem;
   margin: 1rem;
   margin-top: 1.5rem;
-  border-radius: 2rem;
+  border-radius: .5rem;
   border: .2rem solid var(--text-color-light);
   font-size: 1.4rem;
   background-color: rgba(255, 255, 255, 0.36);
 }
 
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
 
+.add-btn ion-icon {
+  font-size: 2rem;
+}
 
 .btn {
   cursor: pointer;
@@ -175,23 +186,23 @@ body {
 /* Table styles */
 .expense-table-wrapper {
   max-height: 30rem;
-  /* Sets the scrollable height */
   overflow-y: auto;
-  /* Enables vertical scrolling */
+  overflow-x: hidden;
+  /* position: relative; */
 }
 
 .expense-table {
   width: 100%;
   border-collapse: collapse;
+  text-wrap: pretty;
+  word-break: break-all;
 }
 
 .expense-table thead {
   position: sticky;
-  /* Keeps the thead fixed */
   top: 0;
   z-index: 1;
   background-color: var(--highlight-color);
-  /* Ensure it matches the header */
 }
 
 .expense-fields th,
@@ -251,11 +262,13 @@ body {
   color: var(--highlight-color);
   cursor: pointer;
   transition: all .6s;
+  text-wrap: nowrap;
+  word-break: none;
 }
 
 .delete-btn:hover {
   background-color: rgb(209, 15, 15);
-  transform: translateY(-0.2rem);
+  /* transform: translateY(-1px); */
 }
 
 /* display */
@@ -325,12 +338,11 @@ input::-webkit-inner-spin-button {
 }
 
 .delete-model {
-  height: 34rem;
   background-color: white;
   position: fixed;
   z-index: 1200;
-  width: 35rem;
-  padding: 1.5rem 2rem;
+  max-width: 35rem;
+  padding: 2.5rem 3rem;
   border-radius: 2rem;
 }
 
@@ -338,29 +350,74 @@ input::-webkit-inner-spin-button {
   text-align: center;
   font-size: 1.8rem;
   margin: 2rem 0;
+  text-wrap: pretty;
 }
 
 .delete-img {
-  height: 20rem;
+  height: 15rem;
   width: auto;
   object-fit: cover;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 2rem auto;
 }
 
 .buttons-box {
-  outline: 1px solid lime;
+  /* outline: 1px solid lime; */
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 1.6rem;
+  /* justify-content: space-between; */
 }
 
 .hidden {
-  /* opacity: 0; */
+  opacity: 0;
   visibility: hidden;
 }
 
+.close-popup-btn {
+  border: none;
+  padding: .3rem;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  background-color: white;
+  cursor: pointer;
+  color: rgb(17, 17, 17);
+  transition: color 0.3s;
+}
+
+.close-popup-btn:hover {
+  color: black;
+}
+
+.buttons-box button {
+  border: none;
+  padding: 1rem 2rem;
+  color: white;
+  font-size: 1.4rem;
+  cursor: pointer;
+  flex: 1;
+  transition: all .3s;
+  border-radius: .5rem;
+  /* margin-top: 3rem; */
+}
+
+.yes-delete {
+  background-color: #D94860;
+}
+
+.yes-delete:hover {
+  background-color: #e92222;
+}
+
+.cancel-btn {
+  background-color: #5085E9;
+}
+
+.cancel-btn:hover {
+  background-color: #1e65e9;
+}
 
 @media(max-width:40em) {
 
@@ -370,11 +427,41 @@ input::-webkit-inner-spin-button {
     gap: 1rem;
   }
 
-  /* .expense-input {
-    min-width: 5rem;
-    padding: 1rem .5rem;
-  } */
+  .expense-form {
+    gap: 1rem;
+  }
+
+  .expense-input:nth-child(3) {
+    width: 5rem;
+  }
+
   .expense-input:last-child {
     width: max-content;
+  }
+
+  .expense-input:nth-child(3) {
+    flex: 1 1 7rem;
+  }
+
+  .expense-select {
+    /* flex: 1 1 50%; */
+  }
+
+  .add-btn {
+    /* flex: 1 1 50%; */
+  }
+}
+
+@media (max-width:30em) {
+  .expense-table {
+    max-width: 100%;
+  }
+
+  .expense-fields th {
+    font-size: 1.6rem;
+  }
+
+  .expense-data {
+    font-size: 1.4rem;
   }
 }
